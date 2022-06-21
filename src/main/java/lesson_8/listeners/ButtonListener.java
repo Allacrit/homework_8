@@ -16,7 +16,7 @@ public class ButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
-        inputField.setText(inputField.getText() + " " + btn.getText());
+        inputField.setText(inputField.getText() + btn.getText());
 
     }
 }

@@ -1,10 +1,7 @@
 package lesson_8;
 
 import lesson_8.components.OperatorJButton;
-import lesson_8.listeners.ButtonListener;
-import lesson_8.listeners.ClearButtonActionListener;
-import lesson_8.listeners.ExitButtonListener;
-import lesson_8.listeners.TestButtonListener;
+import lesson_8.listeners.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,7 +47,6 @@ public class ApplicationForm extends JFrame {
         inputField.setEditable(false);
         top.add(inputField);
         inputField.setFont(new Font("Times Roman",Font.BOLD,25));
-        inputField.setMargin(new Insets(8,0,8,0));
         inputField.setBackground(new Color(229, 224, 199));
         inputField.setText("");
         return top;
@@ -64,8 +60,8 @@ public class ApplicationForm extends JFrame {
 
 
 
-        centerPanel.add(createDigitsPanel(buttonListener),BorderLayout.WEST);
-        centerPanel.add(createOperatorsPanel(buttonListener),BorderLayout.CENTER);
+        centerPanel.add(createDigitsPanel(buttonListener),BorderLayout.CENTER);
+        centerPanel.add(createOperatorsPanel(buttonListener),BorderLayout.EAST);
 
 
         return centerPanel;
@@ -77,7 +73,7 @@ public class ApplicationForm extends JFrame {
 
         JButton erase = new OperatorJButton("<");
         panel.add(erase);
-        erase.addActionListener(buttonListener);
+        erase.addActionListener(new EraseButtonActionListener(inputField));
 
         JButton clear = new OperatorJButton("C");
         panel.add(clear);
@@ -91,7 +87,7 @@ public class ApplicationForm extends JFrame {
         panel.add(minus);
         minus.addActionListener(buttonListener);
 
-        JButton multiply = new OperatorJButton("x");
+        JButton multiply = new OperatorJButton("*");
         panel.add(multiply);
         multiply.addActionListener(buttonListener);
 
@@ -99,13 +95,13 @@ public class ApplicationForm extends JFrame {
         panel.add(divide);
         divide.addActionListener(buttonListener);
 
-        JButton nul = new OperatorJButton("");
-        nul.setEnabled(false);
-        panel.add(nul);
+        JButton closedBracket = new OperatorJButton(")");
+        panel.add(closedBracket);
+        closedBracket.addActionListener(buttonListener);
+
         JButton contitenation = new OperatorJButton("=");
         panel.add(contitenation);
-
-
+        contitenation.addActionListener(new CalcButtonActionListener(inputField));
 
         return panel;
     }
@@ -158,22 +154,10 @@ public class ApplicationForm extends JFrame {
         digitsPanel.add(zero);
         zero.addActionListener(buttonListener);
 
-        JButton nul = new OperatorJButton("");
-        nul.setEnabled(false);
-        digitsPanel.add(nul);
-
+        JButton openBracket = new OperatorJButton("(");
+        digitsPanel.add(openBracket);
+        openBracket.addActionListener(buttonListener);
 
         return digitsPanel;
-    }
-
-    private void testListener() {
-        Button button = new Button("Кнопка");
-        button.addActionListener(new TestButtonListener());
-
-
-
-
-
-        super.add(button);
     }
 }
